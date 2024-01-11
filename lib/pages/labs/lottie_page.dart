@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:lottie/lottie.dart';
 
-class FlutterLottie extends StatefulWidget {
-  const FlutterLottie({Key? key}) : super(key: key);
+class LottiePage extends StatefulWidget {
+  const LottiePage({Key? key}) : super(key: key);
 
   @override
-  State<FlutterLottie> createState() => _FlutterLottieState();
+  State<LottiePage> createState() => _LottiePageState();
 }
 
-class _FlutterLottieState extends State<FlutterLottie> with TickerProviderStateMixin {
+class _LottiePageState extends State<LottiePage> with TickerProviderStateMixin {
   late final AnimationController _controller;
 
   @override
@@ -27,9 +27,7 @@ class _FlutterLottieState extends State<FlutterLottie> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("FlutterLottie"),
-      ),
+      appBar: AppBar(title: const Text("Lottie动画")),
       body: SingleChildScrollView(
         child: Column(
           children: [

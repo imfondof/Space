@@ -4,4 +4,5 @@ class Routes {
   static String lottie = "/labs/lottie";
   static String riveLogin = "/labs/riveLogin";
   static String slideBanner = "/labs/slideBanner";
+  static String base64Page = "/labs/base64Page";
 }

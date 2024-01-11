@@ -51,9 +51,7 @@ class _SlideBannerPageState extends State<SlideBannerPage> {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: const Text("slide_banner"),
-      ),
+      appBar: AppBar(title: const Text("滑动效果的Banner")),
       body: Center(
         child: SizedBox(
           height: screenSize.width / 1.5,
@@ -99,18 +97,16 @@ class ParallaxImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final scale = 1 - horizontalSlide.abs();
     final size = MediaQuery.of(context).size;
-    return Container(
-      child: Center(
-        child: SizedBox(
-          width: size.width * ((scale * 0.8) + 0.8),
-          height: size.height * ((scale * 0.2) + 0.2),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(48)),
-            child: Image.network(
-              url,
-              alignment: Alignment(horizontalSlide, 1),
-              fit: BoxFit.cover,
-            ),
+    return Center(
+      child: SizedBox(
+        width: size.width * ((scale * 0.8) + 0.8),
+        height: size.height * ((scale * 0.2) + 0.2),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(48)),
+          child: Image.network(
+            url,
+            alignment: Alignment(horizontalSlide, 1),
+            fit: BoxFit.cover,
           ),
         ),
       ),

@@ -13,15 +13,15 @@ class _LabsPageState extends State<LabsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("实验室"),
-      ),
+      appBar: AppBar(title: const Text("实验室")),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextButton(onPressed: _jumpFlutterSpinkit, child: const Text("flutter_spinkit")),
-          TextButton(onPressed: _jumpFlutterLottie, child: const Text("flutter_lottie")),
-          TextButton(onPressed: _jumpFlutterRive, child: const Text("flutter_rive_login")),
-          TextButton(onPressed: _jumpSlideBanner, child: const Text("slide_banner")),
+          TextButton(onPressed: _jumpSlideBanner, child: const Text("滑动效果的Banner")),
+          TextButton(onPressed: _jumpFlutterRive, child: const Text("Rive登录动画（小熊）")),
+          TextButton(onPressed: _jumpFlutterLottie, child: const Text("Lottie动画")),
+          TextButton(onPressed: _jumpFlutterSpinkit, child: const Text("Spinkit加载动画")),
+          // TextButton(onPressed: _jumpBase64Page, child: const Text("Base64")),
         ],
       ),
     );
@@ -41,5 +41,9 @@ class _LabsPageState extends State<LabsPage> {
 
   void _jumpSlideBanner() {
     Navigator.pushNamed(context, Routes.slideBanner);
+  }
+
+  void _jumpBase64Page() {
+    Navigator.pushNamed(context, Routes.base64Page);
   }
 }

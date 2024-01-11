@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rive/rive.dart';
 
-class FlutterRiveLogin extends StatefulWidget {
-  const FlutterRiveLogin({super.key});
+class RiveLoginPage extends StatefulWidget {
+  const RiveLoginPage({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return FlutterRiveLoginState();
+    return RiveLoginPageState();
   }
 }
 
-class FlutterRiveLoginState extends State<FlutterRiveLogin> {
+class RiveLoginPageState extends State<RiveLoginPage> {
   Artboard? _riveArtboard;
 
   SMIInput<bool>? _success;
@@ -76,7 +76,8 @@ class FlutterRiveLoginState extends State<FlutterRiveLogin> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text("slide_rive_login"),
+          title: const Text("Rive登录动画（小熊）"),
+          backgroundColor: const Color(0xbbd6e2ea),
         ),
         body: Center(
           child: Container(
@@ -86,7 +87,7 @@ class FlutterRiveLoginState extends State<FlutterRiveLogin> {
             ),
             child: Column(
               children: [
-                const SizedBox(height: 50),
+                const SizedBox(height: 20),
                 Container(
                   color: Colors.transparent,
                   height: 200,

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:space/pages/labs.dart';
+import 'package:space/pages/labs/base64_page.dart';
 
 import 'data/routes.dart';
-import 'pages/labs/flutter_lottie.dart';
-import 'pages/labs/flutter_rive_login.dart';
-import 'pages/labs/flutter_spinkit.dart';
-import 'pages/labs/slide_banner.dart';
+import 'pages/labs/lottie_page.dart';
+import 'pages/labs/rive_login_page.dart';
+import 'pages/labs/spinkit_page.dart';
+import 'pages/labs/slide_banner_page.dart';
 
 ///目标：支持语言、主题切换
 void main() {
@@ -25,10 +26,11 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(title: '笔记'),
       routes: {
         Routes.labs: (BuildContext context) => const LabsPage(),
-        Routes.spinkit: (BuildContext context) => const FlutterSpinkit(),
-        Routes.lottie: (BuildContext context) => const FlutterLottie(),
-        Routes.riveLogin: (BuildContext context) => const FlutterRiveLogin(),
+        Routes.spinkit: (BuildContext context) => const SpinkitPage(),
+        Routes.lottie: (BuildContext context) => const LottiePage(),
+        Routes.riveLogin: (BuildContext context) => const RiveLoginPage(),
         Routes.slideBanner: (BuildContext context) => const SlideBannerPage(),
+        Routes.base64Page: (BuildContext context) => const Base64Page(),
         //Navigator.pushNamed(context, TestRouterPage.routeName, arguments: {"page-title": "test-router"});
       },
     );
