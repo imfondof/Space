@@ -1,14 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:space/pages/labs.dart';
 import 'package:space/pages/labs/base64_page.dart';
+import 'package:space/pages/labs/graphic_page.dart';
 
 import 'data/routes.dart';
+import 'pages/labs/graphic/animation.dart';
+import 'pages/labs/graphic/bigdata.dart';
+import 'pages/labs/graphic/echarts.dart';
+import 'pages/labs/graphic/interaction_stream_dynamic.dart';
+import 'pages/labs/graphic/interval.dart';
+import 'pages/labs/graphic/line_area_point.dart';
 import 'pages/labs/lottie_page.dart';
 import 'pages/labs/rive_login_page.dart';
 import 'pages/labs/spinkit_page.dart';
 import 'pages/labs/slide_banner_page.dart';
 
-///目标：支持语言、主题切换
+final routes = {
+  Routes.labs: (BuildContext context) => const LabsPage(),
+  Routes.spinkit: (BuildContext context) => const SpinkitPage(),
+  Routes.lottie: (BuildContext context) => const LottiePage(),
+  Routes.riveLogin: (BuildContext context) => const RiveLoginPage(),
+  Routes.slideBanner: (BuildContext context) => const SlideBannerPage(),
+  Routes.base64Page: (BuildContext context) => const Base64Page(),
+
+  Routes.graphic: (context) => const GraphicPage(),
+  Routes.graphicInterval: (context) => IntervalPage(),
+  Routes.graphicLineAreaPoint: (context) => LineAreaPointPage(),
+  Routes.graphicInteractionStream: (context) => const InteractionStreamDynamicPage(),
+  Routes.graphicAnimation: (context) => const AnimationPage(),
+  Routes.graphicBigdata: (context) => BigdataPage(),
+  Routes.graphicEcharts: (context) => EchartsPage(),
+  Routes.graphicEcharts: (context) => EchartsPage(),
+};
+
 void main() {
   runApp(const MyApp());
 }
@@ -19,20 +43,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'advance four',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: '笔记'),
-      routes: {
-        Routes.labs: (BuildContext context) => const LabsPage(),
-        Routes.spinkit: (BuildContext context) => const SpinkitPage(),
-        Routes.lottie: (BuildContext context) => const LottiePage(),
-        Routes.riveLogin: (BuildContext context) => const RiveLoginPage(),
-        Routes.slideBanner: (BuildContext context) => const SlideBannerPage(),
-        Routes.base64Page: (BuildContext context) => const Base64Page(),
-        //Navigator.pushNamed(context, TestRouterPage.routeName, arguments: {"page-title": "test-router"});
-      },
+      title: 'advanceFour',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const MyHomePage(title: 'advanceFour'),
+      routes: routes,
     );
   }
 }
@@ -47,44 +61,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  int _counter = 0;
-  late final AnimationController _controller;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(vsync: this)
-      ..value = 0.5
-      ..addListener(() {
-        setState(() {
-          // Rebuild the widget at each frame to update the "progress" label.
-        });
-      });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(widget.title),
-      // ),
+      appBar: AppBar(title: Text(widget.title)),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/icons/bg_zbh.webp"),
-            fit: BoxFit.cover, // 完全填充
+            fit: BoxFit.cover,
           ),
         ),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(

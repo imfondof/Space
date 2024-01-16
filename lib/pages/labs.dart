@@ -21,6 +21,7 @@ class _LabsPageState extends State<LabsPage> {
           TextButton(onPressed: _jumpFlutterRive, child: const Text("Rive登录动画（小熊）")),
           TextButton(onPressed: _jumpFlutterLottie, child: const Text("Lottie动画")),
           TextButton(onPressed: _jumpFlutterSpinkit, child: const Text("Spinkit加载动画")),
+          TextButton(onPressed: _jumpGraphic, child: const Text("graphic")),
           // TextButton(onPressed: _jumpBase64Page, child: const Text("Base64")),
         ],
       ),
@@ -41,6 +42,10 @@ class _LabsPageState extends State<LabsPage> {
 
   void _jumpSlideBanner() {
     Navigator.pushNamed(context, Routes.slideBanner);
+  }
+
+  void _jumpGraphic() {
+    Navigator.pushNamed(context, Routes.graphic);
   }
 
   void _jumpBase64Page() {
