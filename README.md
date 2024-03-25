@@ -2,15 +2,22 @@
 
 Everyone has their own unique space.
 
+| 平台类型 | 查看（下载）地址|相关文章 | 
+|---------|---------|---------|
+| Web | [advancefour](https://advancefour.github.io/)| (暂无)|
+
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+#### 当前Flutter 版本
 
-A few resources to get you started if this is your first Flutter project:
+```
+Flutter (Channel stable, 3.19.3, on Microsoft Windows [版本 10.0.22621.3296], locale zh-CN)
+Dart SDK version: 3.3.1 (stable) (Wed Mar 6 13:09:19 2024 +0000) on "windows_x64"
+Android Studio (version 2022.3)
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+#### 构建命令,产出应用
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+````
+web 打包:  flutter build web --web-renderer canvaskit --release 
+````
