@@ -1,8 +1,19 @@
+// import 'package:echart/echart_page.dart';
+// import 'package:echart/test_title.dart';
+// import 'package:echart/anim/bottom_8_page.dart';
+import 'package:generativeartistry/pages/all_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:l10n/l10n.dart';
+import 'package:provider/provider.dart';
 import 'package:space/pages/labs.dart';
 import 'package:space/pages/labs/base64_page.dart';
 import 'package:space/pages/labs/graphic_page.dart';
-
+import 'package:space/pages/labs/provider_page.dart';
+import 'package:space/providers/local_provider.dart';
+import 'package:space/providers/theme_provider.dart';
+import 'bloc/counter_cubit.dart';
+import 'bloc/counter_page.dart';
 import 'data/routes.dart';
 import 'pages/labs/graphic/animation.dart';
 import 'pages/labs/graphic/bigdata.dart';
@@ -16,13 +27,12 @@ import 'pages/labs/spinkit_page.dart';
 import 'pages/labs/slide_banner_page.dart';
 
 final routes = {
-  Routes.labs: (BuildContext context) => const LabsPage(),
+  Routes.labs: (BuildContext context) => const AllPage(),
   Routes.spinkit: (BuildContext context) => const SpinkitPage(),
   Routes.lottie: (BuildContext context) => const LottiePage(),
   Routes.riveLogin: (BuildContext context) => const RiveLoginPage(),
   Routes.slideBanner: (BuildContext context) => const SlideBannerPage(),
   Routes.base64Page: (BuildContext context) => const Base64Page(),
-
   Routes.graphic: (context) => const GraphicPage(),
   Routes.graphicInterval: (context) => IntervalPage(),
   Routes.graphicLineAreaPoint: (context) => LineAreaPointPage(),
@@ -31,21 +41,56 @@ final routes = {
   Routes.graphicBigdata: (context) => BigdataPage(),
   Routes.graphicEcharts: (context) => EchartsPage(),
   Routes.graphicEcharts: (context) => EchartsPage(),
+  Routes.provider: (context) => const ProviderPage(),
 };
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => LocalProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
+//
+// void main() => runApp(const CounterApp());
+//
+// class CounterApp extends StatelessWidget {
+//   const CounterApp({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: BlocProvider(
+//         create: (_) => CounterCubit(),
+//         child: const CounterPage(),
+//       ),
+//     );
+//   }
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localProvider = Provider.of<LocalProvider>(context);
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
-      title: 'advanceFour',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const MyHomePage(title: 'advanceFour'),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
+      locale: localProvider.locale,
+      title: 'my space',
+      home: const MyHomePage(title: 'my space'),
+      localizationsDelegates: l10nDelegates,
+      supportedLocales: l10nLocales,
+      //当前区域locale：Locale myLocale = Localizations.localeOf(context);
       routes: routes,
     );
   }
@@ -65,27 +110,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/icons/bg_zbh.webp"),
-            fit: BoxFit.cover,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              // Text(context.l10n.naturalSelectAdvanceFour, style: const TextStyle(color: Colors.blue)),
+              // const Spacer(),
+              TextButton(onPressed: _jumpFlutterSpinkit, child: Text(context.l10n.laboratory)),
+            ],
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Text('自然选择，前进四！', style: TextStyle(color: Colors.blue)),
-                const Spacer(),
-                TextButton(onPressed: _jumpFlutterSpinkit, child: const Text("实验室")),
-              ],
-            )
-          ],
-        ),
+        ],
       ),
     );
   }

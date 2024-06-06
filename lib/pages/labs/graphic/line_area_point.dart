@@ -7,7 +7,7 @@ import 'data/data.dart';
 final _monthDayFormat = DateFormat('MM-dd');
 
 class LineAreaPointPage extends StatelessWidget {
-  LineAreaPointPage({Key? key}) : super(key: key);
+    LineAreaPointPage({Key? key}) : super(key: key);
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 

@@ -15,4 +15,6 @@ class Routes {
   static String graphicAnimation = "/labs/graphic/Animation";
   static String graphicBigdata = "/labs/graphic/bigData";
   static String graphicEcharts = "/labs/graphic/echart";
+
+  static String provider = "/labs/provider";
 }

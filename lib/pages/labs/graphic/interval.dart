@@ -8,6 +8,19 @@ class IntervalPage extends StatelessWidget {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final roseData2 = [
+    {'value': 600, 'name': 'rose 1'},
+    {'value': 10, 'name': 'rose 2'},
+    {'value': 24, 'name': 'rose 3'},
+    {'value': 12, 'name': 'rose 4'},
+    {'value': 20, 'name': 'rose 5'},
+    {'value': 15, 'name': 'rose 6'},
+    {'value': 22, 'name': 'rose 7'},
+    {'value': 29, 'name': 'rose 8'},
+    {'value': 12, 'name': 'rose 9'},
+    {'value': 20, 'name': 'rose 10'},
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,13 +77,11 @@ class IntervalPage extends StatelessWidget {
                   },
                   marks: [
                     IntervalMark(
-                      label: LabelEncode(
-                          encoder: (tuple) => Label(tuple['sold'].toString())),
+                      label: LabelEncode(encoder: (tuple) => Label(tuple['sold'].toString())),
                       elevation: ElevationEncode(value: 0, updaters: {
                         'tap': {true: (_) => 5}
                       }),
-                      color:
-                          ColorEncode(value: Defaults.primaryColor, updaters: {
+                      color: ColorEncode(value: Defaults.primaryColor, updaters: {
                         'tap': {false: (color) => color.withAlpha(100)}
                       }),
                     )
@@ -114,8 +125,7 @@ class IntervalPage extends StatelessWidget {
                   },
                   marks: [
                     IntervalMark(
-                      label: LabelEncode(
-                          encoder: (tuple) => Label(tuple['sold'].toString())),
+                      label: LabelEncode(encoder: (tuple) => Label(tuple['sold'].toString())),
                       gradient: GradientEncode(
                           value: const LinearGradient(colors: [
                             Color(0x8883bff6),
@@ -196,9 +206,7 @@ class IntervalPage extends StatelessWidget {
                   marks: [
                     IntervalMark(
                       position: Varset('id') * (Varset('min') + Varset('max')),
-                      shape: ShapeEncode(
-                          value: RectShape(
-                              borderRadius: BorderRadius.circular(2))),
+                      shape: ShapeEncode(value: RectShape(borderRadius: BorderRadius.circular(2))),
                     )
                   ],
                   axes: [
@@ -262,16 +270,13 @@ class IntervalPage extends StatelessWidget {
                   },
                   marks: [
                     IntervalMark(
-                      position:
-                          Varset('index') * Varset('value') / Varset('type'),
+                      position: Varset('index') * Varset('value') / Varset('type'),
                       shape: ShapeEncode(value: RectShape(labelPosition: 0.5)),
-                      color: ColorEncode(
-                          variable: 'type', values: Defaults.colors10),
+                      color: ColorEncode(variable: 'type', values: Defaults.colors10),
                       label: LabelEncode(
                           encoder: (tuple) => Label(
                                 tuple['value'].toString(),
-                                LabelStyle(
-                                    textStyle: const TextStyle(fontSize: 6)),
+                                LabelStyle(textStyle: const TextStyle(fontSize: 6)),
                               )),
                       modifiers: [StackModifier()],
                     )
@@ -314,8 +319,7 @@ class IntervalPage extends StatelessWidget {
                   },
                   transforms: [
                     Sort(
-                      compare: (a, b) =>
-                          ((b['sold'] as num) - (a['sold'] as num)).toInt(),
+                      compare: (a, b) => ((b['sold'] as num) - (a['sold'] as num)).toInt(),
                     )
                   ],
                   marks: [
@@ -326,8 +330,7 @@ class IntervalPage extends StatelessWidget {
                                 LabelStyle(textStyle: Defaults.runeStyle),
                               )),
                       shape: ShapeEncode(value: FunnelShape()),
-                      color: ColorEncode(
-                          variable: 'genre', values: Defaults.colors10),
+                      color: ColorEncode(variable: 'genre', values: Defaults.colors10),
                       modifiers: [SymmetricModifier()],
                     )
                   ],
@@ -369,8 +372,7 @@ class IntervalPage extends StatelessWidget {
                                 tuple['sold'].toString(),
                                 LabelStyle(textStyle: Defaults.runeStyle),
                               )),
-                      color: ColorEncode(
-                          variable: 'genre', values: Defaults.colors10),
+                      color: ColorEncode(variable: 'genre', values: Defaults.colors10),
                       modifiers: [StackModifier()],
                     )
                   ],
@@ -396,7 +398,7 @@ class IntervalPage extends StatelessWidget {
                 width: 350,
                 height: 300,
                 child: Chart(
-                  data: roseData,
+                  data: roseData2,
                   variables: {
                     'name': Variable(
                       accessor: (Map map) => map['name'] as String,
@@ -408,19 +410,20 @@ class IntervalPage extends StatelessWidget {
                   },
                   marks: [
                     IntervalMark(
-                      label: LabelEncode(
-                          encoder: (tuple) => Label(tuple['name'].toString())),
+                      label: LabelEncode(encoder: (tuple) => Label(tuple['name'].toString())),
                       shape: ShapeEncode(
                           value: RectShape(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
                       )),
-                      color: ColorEncode(
-                          variable: 'name', values: Defaults.colors10),
+                      color: ColorEncode(variable: 'name', values: Defaults.colors10),
                       elevation: ElevationEncode(value: 5),
                     )
                   ],
-                  coord: PolarCoord(startRadius: 0.15),
+                  // gestureStream: {},
+                  // tooltip: TooltipGuide(),
+                  selections: {'tap': PointSelection()},
+                  tooltip: TooltipGuide(multiTuples: true),
+                  coord: PolarCoord(startRadius: 0.25),
                 ),
               ),
               Container(
@@ -457,10 +460,8 @@ class IntervalPage extends StatelessWidget {
                   },
                   marks: [
                     IntervalMark(
-                      position:
-                          Varset('index') * Varset('value') / Varset('type'),
-                      color: ColorEncode(
-                          variable: 'type', values: Defaults.colors10),
+                      position: Varset('index') * Varset('value') / Varset('type'),
+                      color: ColorEncode(variable: 'type', values: Defaults.colors10),
                       modifiers: [StackModifier()],
                     )
                   ],
@@ -505,8 +506,7 @@ class IntervalPage extends StatelessWidget {
                   },
                   marks: [
                     IntervalMark(
-                      label: LabelEncode(
-                          encoder: (tuple) => Label(tuple['sold'].toString())),
+                      label: LabelEncode(encoder: (tuple) => Label(tuple['sold'].toString())),
                       color: ColorEncode(
                         variable: 'genre',
                         values: Defaults.colors10,

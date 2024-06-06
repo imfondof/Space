@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:l10n/l10n.dart';
 
 import '../data/routes.dart';
 
@@ -13,7 +14,7 @@ class _LabsPageState extends State<LabsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("实验室")),
+      appBar: AppBar(title:  Text(context.l10n.laboratory)),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -22,6 +23,7 @@ class _LabsPageState extends State<LabsPage> {
           TextButton(onPressed: _jumpFlutterLottie, child: const Text("Lottie动画")),
           TextButton(onPressed: _jumpFlutterSpinkit, child: const Text("Spinkit加载动画")),
           TextButton(onPressed: _jumpGraphic, child: const Text("graphic")),
+          TextButton(onPressed: _jumpProvider, child: const Text("provider")),
           // TextButton(onPressed: _jumpBase64Page, child: const Text("Base64")),
         ],
       ),
@@ -46,6 +48,10 @@ class _LabsPageState extends State<LabsPage> {
 
   void _jumpGraphic() {
     Navigator.pushNamed(context, Routes.graphic);
+  }
+
+  void _jumpProvider() {
+    Navigator.pushNamed(context, Routes.provider);
   }
 
   void _jumpBase64Page() {
