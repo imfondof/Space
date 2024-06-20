@@ -22,7 +22,9 @@ dependencies:
   equatable: ^2.0.5 #测试bloc用
 
   cupertino_icons: ^1.0.2
-  flutter_bloc: ^8.1.5 
+  flutter_bloc: ^8.1.5
+  scaled_app: ^2.3.0 #屏幕适配
+  fluttertoast: ^8.1.2
 
  # 这里是独立出来的包
   l10n:

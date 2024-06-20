@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import '../colors.dart';
 
 class PietMondrian extends StatefulWidget {
+  const PietMondrian({super.key});
+
   @override
   _PietMondrianState createState() => _PietMondrianState();
 }
@@ -12,8 +14,13 @@ class PietMondrian extends StatefulWidget {
 class _PietMondrianState extends State<PietMondrian> {
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: PietMondrianPainnter(),
+    return GestureDetector(
+      onTap: () {
+        setState(() {});
+      },
+      child: CustomPaint(
+        painter: PietMondrianPainnter(),
+      ),
     );
   }
 }
@@ -78,20 +85,20 @@ class PietMondrianPainnter extends CustomPainter {
   }
 
   void _splitSquaresWith(Map coordinates, List<Square> squares) {
-    final double x = coordinates["x"];
-    final double y = coordinates["y"];
+    final double x = coordinates["x"] ?? 0;
+    final double y = coordinates["y"] ?? 0;
 
     for (int i = squares.length - 1; i >= 0; i--) {
       final Square square = squares[i];
 
-      if (x != null && x > square.x && x < square.x + square.width) {
+      if (x > square.x && x < square.x + square.width) {
         if (Random().nextBool()) {
           squares.removeAt(i);
           _splitOnX(square, x, squares);
         }
       }
 
-      if (y != null && y > square.y && y < square.y + square.height) {
+      if (y > square.y && y < square.y + square.height) {
         if (Random().nextBool()) {
           squares.removeAt(i);
           _splitOnY(square, y, squares);
@@ -164,8 +171,5 @@ class PietMondrianPainnter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(PietMondrianPainnter oldDelegate) => false;
-
-  @override
-  bool shouldRebuildSemantics(PietMondrianPainnter oldDelegate) => false;
+  bool shouldRepaint(PietMondrianPainnter oldDelegate) => true;
 }
