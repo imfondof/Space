@@ -25,6 +25,7 @@ dependencies:
   flutter_bloc: ^8.1.5
   scaled_app: ^2.3.0 #屏幕适配
   fluttertoast: ^8.1.2
+  go_router: ^14.2.1 #路由
 
  # 这里是独立出来的包
   l10n:

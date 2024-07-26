@@ -2,21 +2,28 @@
 // import 'package:echart/test_title.dart';
 // import 'package:echart/anim/bottom_8_page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:generativeartistry/pages/all_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:l10n/l10n.dart';
 import 'package:provider/provider.dart';
-import 'package:scaled_app/scaled_app.dart';
 import 'package:space/pages/introduce.dart';
-import 'package:space/pages/labs.dart';
 import 'package:space/pages/labs/base64_page.dart';
 import 'package:space/pages/labs/graphic_page.dart';
 import 'package:space/pages/labs/provider_page.dart';
 import 'package:space/providers/local_provider.dart';
 import 'package:space/providers/theme_provider.dart';
+import 'package:space/route/route_config.dart';
+import 'bloc/cubit_demo/bloc_demo.dart';
+import 'bloc/cubit_demo/cubit_demo.dart';
+import 'bloc/flutter_counter/app.dart';
+import 'bloc/flutter_counter/counter/counter.dart';
+import 'bloc/flutter_counter/counter_observer.dart';
+import 'bloc/timer/app.dart';
 import 'data/routes.dart';
+import 'demo/provider_example.dart';
 import 'pages/labs/graphic/animation.dart';
 import 'pages/labs/graphic/bigdata.dart';
 import 'pages/labs/graphic/echarts.dart';
@@ -28,25 +35,8 @@ import 'pages/labs/rive_login_page.dart';
 import 'pages/labs/spinkit_page.dart';
 import 'pages/labs/slide_banner_page.dart';
 
-final routes = {
-  Routes.labs: (BuildContext context) => const AllPage(),
-  Routes.spinkit: (BuildContext context) => const SpinkitPage(),
-  Routes.lottie: (BuildContext context) => const LottiePage(),
-  Routes.riveLogin: (BuildContext context) => const RiveLoginPage(),
-  Routes.slideBanner: (BuildContext context) => const SlideBannerPage(),
-  Routes.base64Page: (BuildContext context) => const Base64Page(),
-  Routes.graphic: (context) => const GraphicPage(),
-  Routes.graphicInterval: (context) => IntervalPage(),
-  Routes.graphicLineAreaPoint: (context) => LineAreaPointPage(),
-  Routes.graphicInteractionStream: (context) => const InteractionStreamDynamicPage(),
-  Routes.graphicAnimation: (context) => const AnimationPage(),
-  Routes.graphicBigdata: (context) => BigdataPage(),
-  Routes.graphicEcharts: (context) => EchartsPage(),
-  Routes.graphicEcharts: (context) => EchartsPage(),
-  Routes.provider: (context) => const ProviderPage(),
-};
 
-void main() {
+Future<void> main() async {
   //这里是屏幕适配
   // ScaledWidgetsFlutterBinding.ensureInitialized(
   //   scaleFactor: (deviceSize) {
@@ -61,16 +51,16 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         ChangeNotifierProvider(create: (context) => LocalProvider()),
+        ChangeNotifierProvider(create: (_) => Counter()), //provider demo
       ],
       child: const MyApp(),
     ),
   );
 }
-//
 // void main() => runApp(const CounterApp());
-//
-// class CounterApp extends StatelessWidget {
-//   const CounterApp({super.key});
+
+// class CounterApp1 extends StatelessWidget {
+//   const CounterApp1({super.key});
 //
 //   @override
 //   Widget build(BuildContext context) {
@@ -91,18 +81,17 @@ class MyApp extends StatelessWidget {
     final localProvider = Provider.of<LocalProvider>(context);
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    return MaterialApp(
+    return MaterialApp.router(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
       locale: localProvider.locale,
       title: 'my space',
-      home: const MyHomePage(title: 'my space'),
       localizationsDelegates: l10nDelegates,
       supportedLocales: l10nLocales,
       //当前区域locale：Locale myLocale = Localizations.localeOf(context);
-      routes: routes,
+      routerConfig: routerConfig,
     );
   }
 }
@@ -132,25 +121,25 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           //   ],
           // ),
 
-          // GestureDetector(
-          //   onTap: () {
-          //     _jumpFlutterSpinkit();
-          //   },
-          //   child: Container(
-          //     decoration: const BoxDecoration(
-          //       color: Color(0xFFCE93D8),
-          //       borderRadius: BorderRadius.all(
-          //         Radius.circular(12),
-          //       ),
-          //     ),
-          //     margin: const EdgeInsets.only(left: 15, right: 15),
-          //     width: MediaQuery.of(context).size.width,
-          //     height: 100,
-          //     child: Center(
-          //       child: Text(context.l10n.laboratory),
-          //     ),
-          //   ),
-          // ),
+          GestureDetector(
+            onTap: () {
+              context.go(Routes.labs);
+            },
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Color(0xFFCE93D8),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(12),
+                ),
+              ),
+              margin: const EdgeInsets.only(left: 15, right: 15),
+              width: MediaQuery.of(context).size.width,
+              height: 100,
+              child: Center(
+                child: Text(context.l10n.laboratory),
+              ),
+            ),
+          ),
           // Container(
           //   decoration: const BoxDecoration(
           //     color: Color(0xFFCE93D8),
@@ -165,11 +154,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           //     child: Text("renzhi juexing"),
           //   ),
           // ),
-          _buildItem("早起", Colors.cyan, icon: const Icon(Icons.scatter_plot_outlined, weight: 20)),
-          _buildItem("冥想", Colors.blue, icon: const Icon(Icons.self_improvement_outlined, weight: 20)),
-          _buildItem("阅读", Colors.redAccent),
-          _buildItem("写作", Colors.purpleAccent, icon: const Icon(Icons.grade_rounded, weight: 20)),
-          _buildItem("跑步", Colors.deepOrangeAccent, icon: const Icon(Icons.run_circle, weight: 20)),
+
+          // _buildItem("早起", Colors.cyan, icon: const Icon(Icons.scatter_plot_outlined, weight: 20)),
+          // _buildItem("冥想", Colors.blue, icon: const Icon(Icons.self_improvement_outlined, weight: 20)),
+          // _buildItem("阅读", Colors.redAccent),
+          // _buildItem("写作", Colors.purpleAccent, icon: const Icon(Icons.grade_rounded, weight: 20)),
+          // _buildItem("跑步", Colors.deepOrangeAccent, icon: const Icon(Icons.run_circle, weight: 20)),
         ],
       ),
     );
@@ -201,10 +191,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               height: 50,
               margin: const EdgeInsets.only(right: 5, left: 10),
               decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-                // border: Border.all(color: itemColor, width: 1),
-                color: Color(0xffefefef)
-              ),
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  // border: Border.all(color: itemColor, width: 1),
+                  color: Color(0xffefefef)),
               child: Center(
                 child: icon, //grade_rounded
               ),

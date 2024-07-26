@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:space/bloc/timer/timer_event.dart';
-import 'package:space/bloc/timer/timer_state.dart';
+import 'package:space/bloc/timer/bloc/timer_event.dart';
+import 'package:space/bloc/timer/bloc/timer_state.dart';
 
-import 'ticker.dart';
+import '../ticker.dart';
 
 class TimerBloc extends Bloc<TimerEvent, TimerState> {
   TimerBloc({required Ticker ticker})
@@ -18,7 +18,7 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   }
 
   final Ticker _ticker;
-  static const int _duration = 60;
+  static const int _duration = 120;
 
   StreamSubscription<int>? _tickerSubscription;
 

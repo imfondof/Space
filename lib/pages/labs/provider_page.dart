@@ -27,9 +27,9 @@ class _ProviderPageState extends State<ProviderPage> {
           TextButton(
             onPressed: () {
               if (Provider.of<ThemeProvider>(context, listen: false).themeData == ThemeData.light()) {
-                Provider.of<ThemeProvider>(context, listen: false).setTheme(ThemeData.dark());
+                context.read<ThemeProvider>().setTheme(ThemeData.dark());
               } else {
-                Provider.of<ThemeProvider>(context, listen: false).setTheme(ThemeData.light());
+                context.read<ThemeProvider>().setTheme(ThemeData.light());
               }
             },
             child: const Text("切换主题"),
